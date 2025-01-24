@@ -11,6 +11,7 @@ const app = express();
 // สร้างตัวแปรเก็บค่า port number ที่อยู่ใน .env
 const PORT = process.env.PORT || 4040;
 let xxx = 'Wow'
+let yyy = 'Woo'
 
 // สร้าง route เพื่อเทส
 // app.get('/', (req, res) => {
