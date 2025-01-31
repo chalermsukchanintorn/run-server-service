@@ -6,6 +6,7 @@
 const runner = require('./../models/runner.model.js');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 //สร้างส่วนของการอัปโหลดไฟล์ด้วย multer ทำ 2 ขั้นตอน
 //1. กําหนดตําแหน่งที่จะอัปโหลดไฟล์ และชื่อไฟล์
@@ -116,6 +117,21 @@ const editRunner = async (req, res) => {
         }
 
         if(req.file){
+            //หากมีการแก้ไขรูป ให้ลบรูปเดิมทิ้ง
+            //- ค้นหารูปเดิมที่มีอยู่
+            const runnerData = await runner.findOne({
+                where: {
+                    runnerId: req.params.runnerId
+                }
+            })
+
+            //- ลบไฟล์เดิมที่มีอยู่ โดยตรวจสอบก่อนว่ามีรูปเดิมอยู่ก่อนไหม
+            if(runnerData.runnerImage){
+                const oldImage = path.join(__dirname, `./../images/runner/${runnerData.runnerImage}`); // ตัวแปรเก็บ path ของรูปเดิม
+                fs.unlinkSync(oldImage); //ลบทิิ้ง
+            }
+
+            //แก้ไขรูป
             data.runnerImage = req.file.path.replace("images\\runner\\","")
         }else{
             delete data.runnerImage

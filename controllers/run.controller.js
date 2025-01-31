@@ -33,7 +33,6 @@ const uploadRun = multer({
 }).single('runImage');
 
 
-
 //ฟัง์ชันเพิ่มข้อมูลการวิ่ง
 // กรณีไม่มีการอัปโหลดไฟล์ใช้แบบนี้
 // const addRun = async (req, res) => {
@@ -92,7 +91,7 @@ const editRun = async (req, res) => {
             ...req.body,
         }
 
-        if(req.file){
+        if(req.file){          
             data.runImage = req.file.path.replace("images\\run\\","")
         }else{
             delete data.runImage
