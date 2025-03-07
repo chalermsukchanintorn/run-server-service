@@ -25,6 +25,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/runner', runnerRoute);
 app.use('/run', runRoute);
+app.use('/images/runner', express.static('images/runner'));
+app.use('/images/run', express.static('images/run'));
 
 // กำหนดช่องทางในการติดต่อ web server
 // พร้อมกับการรอรับ request จาก client/user

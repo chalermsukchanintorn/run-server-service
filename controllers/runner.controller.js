@@ -151,7 +151,6 @@ const editRunner = async (req, res) => {
     }
 }
 
-
 module.exports = {
     addRunner,
     checkLoginRunner,

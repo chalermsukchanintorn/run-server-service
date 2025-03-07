@@ -131,9 +131,32 @@ const delRun = async (req, res) => {
 //ฟังก์ชันดึงข้อมูลการวิ่งทั้งหมดของนักวิ่งคนนั้นๆ
 const getAllRun = async (req, res) => {
     try{
-        const result = await runner.findAll({
+        const result = await run.findAll({
             where: {
                 runnerId: req.params.runnerId
+            }
+        })
+        if(result){
+            res.status(200).json({
+                message: 'Get have data successfully',
+                data: result
+            });            
+        }else{
+            res.status(404).json({ 
+                message: 'Not have data' 
+            });
+        }
+    }catch(err){
+        res.status(500).json({ message: `ERROR:  ${err}` });
+    }
+}
+
+//ฟังก์ชันดึงข้อมูลการวิ่งหนึ่งๆ
+const getOnlyRun = async (req, res) => {
+    try{
+        const result = await run.findOne({
+            where: {
+                runId: req.params.runId
             }
         })
         if(result){
@@ -156,5 +179,6 @@ module.exports = {
     editRun, 
     delRun, 
     getAllRun, 
-    uploadRun
+    uploadRun,
+    getOnlyRun,
 }
